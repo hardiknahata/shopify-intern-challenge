@@ -7,7 +7,7 @@ https://docs.google.com/document/d/13VCtoyto9X1PZ74nPI4ZEDdb8hF8LAlcmLH1ZTHxKxE/
 Please click on this link to open the Jupyter Notebook in Google Collab and view the solution:  
 https://colab.research.google.com/drive/1OOOQwi3HO7eoXVFlR0v3tYnZOzVhtRzA?usp=sharing  
 
-# Challenge 2 - Solution :-  
+# Challenge 2 - Solution  
 
 **a) How many orders were shipped by Speedy Express in total?**    
 ```
@@ -16,6 +16,9 @@ JOIN Shippers AS s
 ON s.ShipperID = o.ShipperID
 WHERE ShipperName = 'Speedy Express'
 ```
+**ANSWER: Speedy Express shipped 54 orders in total.**
+<br>
+<br>
 
 **b) What is the last name of the employee with the most orders?**  
 ```
@@ -29,10 +32,14 @@ GROUP BY e.LastName
 ORDER BY Count DESC
 LIMIT 1
 ```
+**ANSWER: LastName of the Customer is 'Peacock'.**
+**Total Orders by the Customer: 123**
+<br>
+<br>
 
 **c) What product was ordered the most by customers in Germany?**    
 ```
-SELECT od.ProductID, COUNT(od.ProductID) AS Count
+SELECT ProductName FROM Products WHERE ProductID = (SELECT ProductID FROM (SELECT od.ProductID, COUNT(od.ProductID) AS Count
 FROM OrderDetails AS od
 JOIN Orders AS o
 ON o.OrderID = od.OrderID
@@ -41,5 +48,8 @@ ON c.CustomerID = o.CustomerID
 WHERE c.Country = 'Germany'
 GROUP BY od.ProductID
 ORDER BY Count DESC
-LIMIT 1
+LIMIT 1) as s1)
 ```
+**ANSWER: Most Ordered Product by customers in Germany is 'Gorgonzola Telino'**
+<br>
+<br>
